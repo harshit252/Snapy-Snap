@@ -1,4 +1,6 @@
 import 'package:college_project/Screens/HomeScreen.dart';
+import 'package:college_project/Screens/create.dart';
+import 'package:college_project/Screens/explore.dart';
 import 'package:flutter/material.dart';
 import 'package:bottom_bar/bottom_bar.dart';
 
@@ -20,8 +22,9 @@ class _HomePageState extends State<HomePage> {
         controller: _pageController,
         children: [
           HomeScreen(),
-          Container(color: Colors.red),
-          Container(color: Colors.greenAccent.shade700),
+          Explore(),
+          // Container(color: Colors.blue),
+          CreateCapture(),
           Container(color: Colors.pinkAccent.shade400),
           Container(color: Colors.orange),
         ],
@@ -55,9 +58,10 @@ class _HomePageState extends State<HomePage> {
             activeColor: Colors.greenAccent.shade700,
           ),
           const BottomBarItem(
-              icon: Icon(Icons.message_rounded),
-              title: Text("Chat"),
-              activeColor: Colors.pinkAccent),
+            icon: Icon(Icons.message_rounded),
+            title: Text("Chat"),
+            activeColor: Colors.pinkAccent,
+          ),
           BottomBarItem(
             icon: const Icon(Icons.settings),
             title: const Text('Settings'),
