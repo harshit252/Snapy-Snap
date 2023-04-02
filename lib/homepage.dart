@@ -1,4 +1,5 @@
 import 'package:college_project/Screens/HomeScreen.dart';
+import 'package:college_project/Screens/chat.dart';
 import 'package:college_project/Screens/create.dart';
 import 'package:flutter/material.dart';
 import 'package:bottom_bar/bottom_bar.dart';
@@ -23,7 +24,7 @@ class _HomePageState extends State<HomePage> {
           HomeScreen(),
           Container(color: Colors.red),
           CreateCapture(),
-          Container(color: Colors.pinkAccent.shade400),
+          Chat(),
           Container(color: Colors.orange),
         ],
         onPageChanged: (index) {
