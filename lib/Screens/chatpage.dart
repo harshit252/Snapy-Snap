@@ -12,7 +12,7 @@ class ChatPage extends StatelessWidget {
       backgroundColor: Colors.pink.shade400,
       appBar: AppBar(
         backgroundColor: Colors.pink.shade400,
-        title: const Text('John Doe'),
+        title: const Text('Aritra Das'),
         elevation: 0,
         actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))],
       ),
