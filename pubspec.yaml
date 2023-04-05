@@ -41,7 +41,7 @@ dependencies:
   transparent_image: ^2.0.0
   deepar_flutter:
   open_file:
-  video_player: ^2.2.5
+  video_player: ^2.6.1
 
 
 dev_dependencies:
