@@ -1,6 +1,7 @@
 import 'package:college_project/Screens/HomeScreen.dart';
 import 'package:college_project/Screens/chat.dart';
 import 'package:college_project/Screens/create.dart';
+import 'package:college_project/Screens/explore.dart';
 import 'package:flutter/material.dart';
 import 'package:bottom_bar/bottom_bar.dart';
 
@@ -22,7 +23,8 @@ class _HomePageState extends State<HomePage> {
         controller: _pageController,
         children: [
           HomeScreen(),
-          Container(color: Colors.red),
+          Explore(),
+          //Container(color: Colors.red),
           CreateCapture(),
           Chat(),
           Container(color: Colors.orange),
