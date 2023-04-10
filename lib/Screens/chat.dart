@@ -99,7 +99,7 @@ class _ChatState extends State<Chat> {
                             child: ListView.builder(
                               itemBuilder: (context, i) {
                                 return ChatWidgets.card(
-                                  title: 'John Doe',
+                                  title: 'Aritra Das',
                                   subtitle: 'Hi, How are you !',
                                   time: '04:40',
                                   onTap: () {

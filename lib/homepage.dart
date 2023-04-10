@@ -5,6 +5,8 @@ import 'package:college_project/Screens/explore.dart';
 import 'package:flutter/material.dart';
 import 'package:bottom_bar/bottom_bar.dart';
 
+import 'builders/functions.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -13,6 +15,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    Functions.updateAvailability();
+    super.initState();
+  }
+
   int _currentPage = 0;
   final _pageController = PageController();
   @override
