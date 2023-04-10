@@ -1,9 +1,9 @@
 
-//import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:college_project/theme/styles.dart';
 import 'package:flutter/material.dart';
 import 'animated-dialog.dart';
-//import 'package:flutterfire_ui/auth.dart';
+import 'package:flutterfire_ui/auth.dart';
 
 class ChatWidgets {
   static Widget card({title, time, subtitle, onTap}) {
@@ -142,7 +142,7 @@ class ChatWidgets {
                 const Divider(
                   color: Colors.white,
                 ),
-                /*ListTile(
+                ListTile(
                   leading: Icon(Icons.person),
                   title: Text('Profile'),
                   onTap: (){
@@ -153,7 +153,7 @@ class ChatWidgets {
                   leading: Icon(Icons.logout),
                   title: Text('Logout'),
                   onTap: ()async =>await FirebaseAuth.instance.signOut(),
-                )*/
+                )
               ],
             ),
           ),

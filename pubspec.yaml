@@ -42,6 +42,11 @@ dependencies:
   deepar_flutter:
   open_file:
   video_player: ^2.2.5
+  firebase_auth: ^4.1.3
+  firebase_core:
+  flutterfire_ui: ^0.4.3+20
+  cloud_firestore:
+  intl:
 
 
 dev_dependencies:
