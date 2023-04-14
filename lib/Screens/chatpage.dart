@@ -24,7 +24,9 @@ class _ChatPageState extends State<ChatPage> {
         backgroundColor: Colors.pink.shade400,
         title: const Text('Aritra Das'),
         elevation: 0,
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))],
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))
+        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,13 +42,23 @@ class _ChatPageState extends State<ChatPage> {
                   style: Styles.h1(),
                 ),
                 const Spacer(),
-                Text(
-                  'Last seen: 04:50',
-                  style: Styles.h1().copyWith(fontSize: 12,fontWeight: FontWeight.normal,color: Colors.white70),
+                StreamBuilder(
+                  stream: firestore.collection('Users').doc(widget.id).snapshots(),
+                  builder: (context,AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
+                    return !snapshot.hasData
+                        ? Container(): Text(
+                      'Last seen : ' + DateFormat('hh:mm a').format(snapshot.data!['date_time'].toDate()),
+                      style: Styles.h1().copyWith(
+                          fontSize: 12,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.white70),
+                    );
+                  }
                 ),
-
                 const Spacer(),
-                const SizedBox(width: 50,)
+                const SizedBox(
+                  width: 50,
+                )
               ],
             ),
           ),
@@ -58,32 +70,45 @@ class _ChatPageState extends State<ChatPage> {
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasData) {
                       if (snapshot.data!.docs.isNotEmpty) {
-                        List<QueryDocumentSnapshot> allData = snapshot.data!.docs
+                        List<QueryDocumentSnapshot> allData = snapshot
+                            .data!.docs
                             .where((element) =>
-                        element['users'].contains(widget.id) &&
-                            element['users'].contains(
-                                FirebaseAuth.instance.currentUser!.uid)).toList();
+                                element['users'].contains(widget.id) &&
+                                element['users'].contains(
+                                    FirebaseAuth.instance.currentUser!.uid))
+                            .toList();
 
-                        QueryDocumentSnapshot? data = allData.isNotEmpty? allData.first : null;
-                        if(data != null){
-
-                            roomId = data.id;
-
-
+                        QueryDocumentSnapshot? data =
+                            allData.isNotEmpty ? allData.first : null;
+                        if (data != null) {
+                          roomId = data.id;
                         }
-                        return data == null? Container(): StreamBuilder(
-                            stream: data.reference.collection('messages').orderBy('datetime', descending: true).snapshots(),
-                            builder: (context, snap) {
-                              return !snap.hasData? Container(): ListView.builder(
-                                itemCount: snap.data!.docs.length,
-                                reverse: true,
-                                itemBuilder: (context, i) {
-                                  return ChatWidgets.messagesCard(
-                                      snap.data!.docs[i]['sent_by'] != widget.id, snap.data!.docs[i]['message'],DateFormat('hh:mm a').format(snap.data!.docs[i]['datetime'].toDate()));
-                                },
-                              );
-                            }
-                        );
+                        return data == null
+                            ? Container()
+                            : StreamBuilder(
+                                stream: data.reference
+                                    .collection('messages')
+                                    .orderBy('datetime', descending: true)
+                                    .snapshots(),
+                                builder: (context, snap) {
+                                  return !snap.hasData
+                                      ? Container()
+                                      : ListView.builder(
+                                          itemCount: snap.data!.docs.length,
+                                          reverse: true,
+                                          itemBuilder: (context, i) {
+                                            return ChatWidgets.messagesCard(
+                                                snap.data!.docs[i]['sent_by'] !=
+                                                    FirebaseAuth
+                                                        .instance.currentUser,
+                                                snap.data!.docs[i]['message'],
+                                                DateFormat('hh:mm a').format(
+                                                    snap.data!
+                                                        .docs[i]['datetime']
+                                                        .toDate()));
+                                          },
+                                        );
+                                });
                       } else {
                         return Center(
                           child: Text(
@@ -104,28 +129,38 @@ class _ChatPageState extends State<ChatPage> {
           Container(
             color: Colors.white,
             child: ChatWidgets.messageField(onSubmit: (controller) {
-              if(roomId != null){
+              if (roomId != null) {
                 Map<String, dynamic> data = {
                   'message': controller.text.trim(),
                   'sent_by': FirebaseAuth.instance.currentUser!.uid,
                   'datetime': DateTime.now(),
                 };
-                firestore.collection('Rooms').doc(roomId).collection('messages').add(data);
-              }else{
+                firestore.collection('Rooms').doc(roomId).update({
+                  'last_message_time' : DateTime.now(),
+                  'last_message': controller.test,
+                });
+                firestore
+                    .collection('Rooms')
+                    .doc(roomId)
+                    .collection('messages')
+                    .add(data);
+              } else {
                 Map<String, dynamic> data = {
-                  'message' : controller.text.trim(),
+                  'message': controller.text.trim(),
                   'sent_by': FirebaseAuth.instance.currentUser!.uid,
-                  'datetime':DateTime.now(),
+                  'datetime': DateTime.now(),
                 };
                 firestore.collection('Rooms').add({
-                  'users': [widget.id,FirebaseAuth.instance.currentUser!.uid],
-                }).then((value)async{
+                  'users': [widget.id, FirebaseAuth.instance.currentUser!.uid],
+                  'last_message': controller.test,
+                  'last_message_time' : DateTime.now(),
+                }).then((value) async {
                   value.collection('messages').add(data);
                 });
               }
+              controller.clear();
             }),
           )
-
         ],
       ),
     );

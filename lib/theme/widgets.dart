@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:college_project/theme/styles.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +24,7 @@ class ChatWidgets {
                 )),
           ),
           title: Text(title),
-          subtitle:subtitle !=null? Text(subtitle): null,
+          subtitle: subtitle != null ? Text(subtitle) : null,
           trailing: Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: Text(time),
@@ -35,14 +34,14 @@ class ChatWidgets {
     );
   }
 
-  static Widget circleProfile({onTap}) {
+  static Widget circleProfile({onTap, name}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       child: InkWell(
         onTap: onTap,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: const [
+          children: [
             CircleAvatar(
               radius: 25,
               backgroundColor: Colors.grey,
@@ -52,7 +51,15 @@ class ChatWidgets {
                 color: Colors.white,
               ),
             ),
-            SizedBox(width: 50,child: Center(child: Text('Aritra',style: TextStyle(height: 1.5,fontSize: 12,color: Colors.white),overflow: TextOverflow.ellipsis,)))
+            SizedBox(
+                width: 50,
+                child: Center(
+                    child: Text(
+                  name,
+                  style:
+                      TextStyle(height: 1.5, fontSize: 12, color: Colors.white),
+                  overflow: TextOverflow.ellipsis,
+                )))
           ],
         ),
       ),
@@ -60,7 +67,6 @@ class ChatWidgets {
   }
 
   static Widget messagesCard(check, message, time) {
-
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -128,7 +134,7 @@ class ChatWidgets {
           child: Theme(
             data: ThemeData.dark(),
             child: Column(
-              children:  [
+              children: [
                 const CircleAvatar(
                   child: Icon(
                     Icons.person,
@@ -145,14 +151,17 @@ class ChatWidgets {
                 ListTile(
                   leading: Icon(Icons.person),
                   title: Text('Profile'),
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileScreen()));
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProfileScreen()));
                   },
                 ),
                 ListTile(
                   leading: Icon(Icons.logout),
                   title: Text('Logout'),
-                  onTap: ()async =>await FirebaseAuth.instance.signOut(),
+                  onTap: () async => await FirebaseAuth.instance.signOut(),
                 )
               ],
             ),
@@ -162,11 +171,12 @@ class ChatWidgets {
     );
   }
 
-  static searchBar(bool open, ) {
+  static searchBar(
+    bool open,
+  ) {
     return AnimatedDialog(
       height: open ? 800 : 0,
       width: open ? 400 : 0,
-
     );
   }
 
