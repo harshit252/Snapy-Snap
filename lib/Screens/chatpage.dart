@@ -7,7 +7,8 @@ import '../theme/widgets.dart';
 
 class ChatPage extends StatefulWidget {
   final String id;
-  const ChatPage({Key? key, required this.id}) : super(key: key);
+  final String name;
+  const ChatPage({Key? key, required this.id, required this.name}) : super(key: key);
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -22,7 +23,7 @@ class _ChatPageState extends State<ChatPage> {
       backgroundColor: Colors.pink.shade400,
       appBar: AppBar(
         backgroundColor: Colors.pink.shade400,
-        title: const Text('Aritra Das'),
+        title: Text(widget.name),
         elevation: 0,
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))
@@ -129,34 +130,36 @@ class _ChatPageState extends State<ChatPage> {
           Container(
             color: Colors.white,
             child: ChatWidgets.messageField(onSubmit: (controller) {
-              if (roomId != null) {
-                Map<String, dynamic> data = {
-                  'message': controller.text.trim(),
-                  'sent_by': FirebaseAuth.instance.currentUser!.uid,
-                  'datetime': DateTime.now(),
-                };
-                firestore.collection('Rooms').doc(roomId).update({
-                  'last_message_time' : DateTime.now(),
-                  'last_message': controller.test,
-                });
-                firestore
-                    .collection('Rooms')
-                    .doc(roomId)
-                    .collection('messages')
-                    .add(data);
-              } else {
-                Map<String, dynamic> data = {
-                  'message': controller.text.trim(),
-                  'sent_by': FirebaseAuth.instance.currentUser!.uid,
-                  'datetime': DateTime.now(),
-                };
-                firestore.collection('Rooms').add({
-                  'users': [widget.id, FirebaseAuth.instance.currentUser!.uid],
-                  'last_message': controller.test,
-                  'last_message_time' : DateTime.now(),
-                }).then((value) async {
-                  value.collection('messages').add(data);
-                });
+              if(controller.text.toString().isNotEmpty){
+                if (roomId != null) {
+                  Map<String, dynamic> data = {
+                    'message': controller.text.trim(),
+                    'sent_by': FirebaseAuth.instance.currentUser!.uid,
+                    'datetime': DateTime.now(),
+                  };
+                  firestore.collection('Rooms').doc(roomId).update({
+                    'last_message_time' : DateTime.now(),
+                    'last_message': controller.test,
+                  });
+                  firestore
+                      .collection('Rooms')
+                      .doc(roomId)
+                      .collection('messages')
+                      .add(data);
+                } else {
+                  Map<String, dynamic> data = {
+                    'message': controller.text.trim(),
+                    'sent_by': FirebaseAuth.instance.currentUser!.uid,
+                    'datetime': DateTime.now(),
+                  };
+                  firestore.collection('Rooms').add({
+                    'users': [widget.id, FirebaseAuth.instance.currentUser!.uid],
+                    'last_message': controller.test,
+                    'last_message_time' : DateTime.now(),
+                  }).then((value) async {
+                    value.collection('messages').add(data);
+                  });
+                }
               }
               controller.clear();
             }),

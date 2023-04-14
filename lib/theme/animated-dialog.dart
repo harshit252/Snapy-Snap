@@ -96,6 +96,7 @@ class _AnimatedDialogState extends State<AnimatedDialog> {
                                               builder: (context) {
                                                 return ChatPage(
                                                   id: data[i].id.toString(),
+                                                  name: data[i]['name'],
                                                 );
                                               },
                                             ),

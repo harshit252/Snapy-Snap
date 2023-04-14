@@ -118,6 +118,7 @@ class _ChatState extends State<Chat> {
                                                     builder: (context) {
                                               return ChatPage(
                                                 id: user,
+                                                name: snap.data[i]['name'],
                                               );
                                             }));
                                           },name: snap.data['name']
@@ -203,6 +204,7 @@ class _ChatState extends State<Chat> {
                                                           builder: (context) {
                                                             return ChatPage(
                                                               id: user,
+                                                              name: snap.data[i]['name'],
                                                             );
                                                           },
                                                         ),
