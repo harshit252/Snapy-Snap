@@ -1,10 +1,9 @@
 import 'dart:async';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_project/theme/widgets.dart';
 import 'package:flutter/material.dart';
-
 import 'package:college_project/Screens/chatpage.dart';
-
+import 'package:intl/intl.dart';
 
 class AnimatedDialog extends StatefulWidget {
   final double height;
@@ -18,16 +17,21 @@ class AnimatedDialog extends StatefulWidget {
 }
 
 class _AnimatedDialogState extends State<AnimatedDialog> {
+  final firestore = FirebaseFirestore.instance;
+  final controller = TextEditingController();
+  String search = '';
   bool show = false;
+
+  get time => null;
   @override
   Widget build(BuildContext context) {
-    if(widget.height != 0){
+    if (widget.height != 0) {
       Timer(const Duration(milliseconds: 200), () {
         setState(() {
           show = true;
         });
       });
-    }else{
+    } else {
       setState(() {
         show = false;
       });
@@ -41,42 +45,71 @@ class _AnimatedDialogState extends State<AnimatedDialog> {
           height: widget.height,
           width: widget.width,
           decoration: BoxDecoration(
-              color:widget.width == 0 ? Colors.indigo.withOpacity(0):  Colors.indigo.shade400,
+              color: widget.width == 0
+                  ? Colors.pink.withOpacity(0)
+                  : Colors.pink.shade400,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(widget.width == 0 ? 100 : 0),
                 bottomRight: Radius.circular(widget.width == 0 ? 100 : 0),
                 bottomLeft: Radius.circular(widget.width == 0 ? 100 : 0),
               )),
-          child: widget.width == 0 ? null : !show ? null :  Column(
-            children: [
-              ChatWidgets.searchField(),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: ListView.builder(
-                    itemCount: 2,
-                    itemBuilder: (context, i) {
-                      return ChatWidgets.card(
-                        title: 'John Doe',
-                        time: '04:40',
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return const ChatPage(
-                                  id: '',
-                                );
-                              },
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ],
-          ),
+          child: widget.width == 0
+              ? null
+              : !show
+                  ? null
+                  : Column(
+                      children: [
+                        ChatWidgets.searchField(onChange: (a) {
+                          setState(() {
+                            search = a;
+                          });
+                        }),
+                        Expanded(
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: StreamBuilder(
+                                stream: null,
+                                builder: (context,
+                                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                                  List data = !snapshot.hasData
+                                      ? []
+                                      : snapshot.data!.docs
+                                          .where((element) =>
+                                              element['email']
+                                                  .toString()
+                                                  .contains(search) ||
+                                              element['email']
+                                                  .toString()
+                                                  .contains(search))
+                                          .toList();
+                                  return ListView.builder(
+                                    itemCount: data.length,
+                                    itemBuilder: (context, i) {
+                                      return ChatWidgets.card(
+                                        title: data[i]['name'],
+                                        time: DateFormat('EEE hh:mm')
+                                            .format(time.toDate()),
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (context) {
+                                                return ChatPage(
+                                                  id: data[i].id.toString(),
+                                                  name: data[i]['name'],
+                                                );
+                                              },
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                  );
+                                }),
+                          ),
+                        ),
+                      ],
+                    ),
         ),
       ],
     );
