@@ -1,7 +1,6 @@
 import 'package:college_project/Screens/video_screen.dart';
-import 'package:college_project/builders/ImageBuild.dart';
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
+
 
 List videoList=[
   {
