@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "924106276609",
+    "project_id": "snapy-snap-bf2d8",
+    "storage_bucket": "snapy-snap-bf2d8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:924106276609:android:8546f2b1de36345c4f2500",
+        "android_client_info": {
+          "package_name": "com.example.college_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "924106276609-54oanro7q1dl95i7eiusjtt2j4g30l2m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCr6GIjoqe5nAwDAIxg9mb7hBscQOiHkG0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "924106276609-54oanro7q1dl95i7eiusjtt2j4g30l2m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
