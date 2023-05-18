@@ -1,12 +1,18 @@
+import 'package:college_project/Screens/HomeScreen.dart';
+import 'package:college_project/Screens/splashScreen.dart';
 import 'package:college_project/homepage.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutterfire_ui/auth.dart';
+
+import 'Screens/auth/loginScreen.dart';
+/*import 'firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';*/
+
+
+late Size mq;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  /*await Firebase.initializeApp();*/
   runApp(const MyApp());
 }
 
@@ -26,14 +32,20 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: AuthGate(),
+    return  const MaterialApp(
+      home: LoginScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
-class AuthGate extends StatelessWidget {
+/*_initializeFirebase() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+}*/
+
+/*class AuthGate extends StatelessWidget {
   const AuthGate({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -49,4 +61,4 @@ class AuthGate extends StatelessWidget {
           }
         });
   }
-}
+}*/
