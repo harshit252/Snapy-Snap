@@ -1,8 +1,9 @@
 
+import 'dart:developer';
 import 'package:college_project/homepage.dart';
 import 'package:flutter/material.dart';
-/*import 'package:google_sign_in/google_sign_in.dart';
-import 'package:firebase_auth/firebase_auth.dart';*/
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../main.dart';
 
@@ -15,18 +16,19 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  /*_handleGoogleBtnClick() {
+  _handleGoogleBtnClick() {
     _signInWithGoogle().then((user){
       log('\nUser: ${user.user}');
       log('\nUserAdditionalInfo: ${user.additionalUserInfo}');
 
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomePage()));
 
     });
-  }*/
+  }
 
-  //Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomePage())));
 
-  /*Future<UserCredential> _signInWithGoogle() async {
+
+  Future<UserCredential> _signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
@@ -42,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
-  }*/
+  }
 
   //sign out function
   // _signOut() async {
@@ -80,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     shape: const StadiumBorder(),
                     elevation: 1),
                 onPressed: () {
-                  /*_handleGoogleBtnClick();*/
+                  _handleGoogleBtnClick();
                 },
 
                 //Google Icon

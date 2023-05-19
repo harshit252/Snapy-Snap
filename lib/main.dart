@@ -1,18 +1,13 @@
-import 'package:college_project/Screens/HomeScreen.dart';
 import 'package:college_project/Screens/splashScreen.dart';
-import 'package:college_project/homepage.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
-import 'Screens/auth/loginScreen.dart';
-/*import 'firebase_options.dart';
-import 'package:firebase_core/firebase_core.dart';*/
 
 
 late Size mq;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  /*await Firebase.initializeApp();*/
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -33,17 +28,12 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return  const MaterialApp(
-      home: LoginScreen(),
+      home: SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
-/*_initializeFirebase() async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-}*/
 
 /*class AuthGate extends StatelessWidget {
   const AuthGate({Key? key}) : super(key: key);

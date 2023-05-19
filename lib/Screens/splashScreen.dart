@@ -1,8 +1,7 @@
 import 'dart:async';
-
+import 'package:college_project/Screens/auth/loginScreen.dart';
 import 'package:flutter/material.dart';
 
-import '../homepage.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -18,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
     Timer(const Duration(seconds: 2), () {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const HomePage()/*AuthGate()*/,),);
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const LoginScreen()/*AuthGate()*/,),);
     });
   }
   @override
