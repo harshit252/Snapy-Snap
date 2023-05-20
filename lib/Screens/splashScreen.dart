@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:college_project/Screens/auth/loginScreen.dart';
+import 'package:college_project/homepage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 
@@ -17,7 +19,13 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
     Timer(const Duration(seconds: 2), () {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const LoginScreen()/*AuthGate()*/,),);
+      if (FirebaseAuth.instance.currentUser != null){
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const HomePage()/*AuthGate()*/,),);
+
+      }else {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const LoginScreen()/*AuthGate()*/,),);
+
+      }
     });
   }
   @override

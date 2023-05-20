@@ -1,6 +1,9 @@
+import 'package:college_project/Screens/auth/loginScreen.dart';
 import 'package:college_project/Screens/splashScreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'homepage.dart';
 
 
 late Size mq;
@@ -35,7 +38,7 @@ class _MyAppState extends State<MyApp> {
 }
 
 
-/*class AuthGate extends StatelessWidget {
+class AuthGate extends StatelessWidget {
   const AuthGate({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -45,10 +48,8 @@ class _MyAppState extends State<MyApp> {
           if (snapshot.hasData) {
             return const HomePage();
           } else {
-            return const SignInScreen(
-              providerConfigs: [EmailProviderConfiguration()],
-            );
+            return const LoginScreen();
           }
         });
   }
-}*/
+}
