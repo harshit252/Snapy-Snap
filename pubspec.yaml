@@ -47,7 +47,12 @@ dependencies:
   deepar_flutter:
   open_file:
   video_player: ^2.6.1
-
+  cached_network_image: ^3.2.3
+  image_picker:
+  firebase_storage: ^11.2.1
+  gallery_saver: ^2.3.2
+  emoji_picker_flutter: ^1.5.4
+  firebase_messaging: ^14.6.1
 
 dev_dependencies:
   flutter_test:

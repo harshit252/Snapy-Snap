@@ -1,14 +1,12 @@
 import 'package:college_project/Screens/ChatScreen.dart';
 import 'package:college_project/Screens/HomeScreen.dart';
 /*
-import 'package:college_project/Screens/ChatScreen.dart';
+import 'package:college_project/Screens/ChatMainScreen.dart';
 */
 import 'package:college_project/Screens/create.dart';
 import 'package:college_project/Screens/explore.dart';
 import 'package:flutter/material.dart';
 import 'package:bottom_bar/bottom_bar.dart';
-
-
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -22,7 +20,6 @@ class _HomePageState extends State<HomePage> {
   final _pageController = PageController();
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: PageView(
         controller: _pageController,
