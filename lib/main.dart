@@ -1,8 +1,8 @@
 import 'package:college_project/Screens/auth/loginScreen.dart';
 import 'package:college_project/Screens/splashScreen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'api/apis.dart';
 import 'homepage.dart';
 
 
@@ -43,7 +43,7 @@ class AuthGate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
+        stream: APIs.auth.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return const HomePage();

@@ -1,6 +1,7 @@
+import 'package:college_project/Screens/ChatScreen.dart';
 import 'package:college_project/Screens/HomeScreen.dart';
 /*
-import 'package:college_project/Screens/chat.dart';
+import 'package:college_project/Screens/ChatScreen.dart';
 */
 import 'package:college_project/Screens/create.dart';
 import 'package:college_project/Screens/explore.dart';
@@ -30,7 +31,7 @@ class _HomePageState extends State<HomePage> {
           Explore(),
           //Container(color: Colors.red),
           const CreateCapture(),
-          /*Chat(),*/
+          const ChatScreen(),
           Container(color: Colors.orange),
         ],
         onPageChanged: (index) {
