@@ -29,6 +29,15 @@ class _CreateCaptureState extends State<CreateCapture> {
   @override
   void initState() {
     _controller = DeepArController();
+    _controller
+        .initialize(
+          androidLicenseKey:
+              "d7a867203f719b0af5fc353ef0053112e41009ddb66aadc0936770d0b310de83af447a9034e06629",
+          iosLicenseKey:
+              "b1777c0a28a53a137b24d82b3f67fd38570b5ec8d0b5b6ea84b3d1c93dc833966026b6ba87fb313c",
+          resolution: Resolution.high,
+        )
+        .then((value) => setState(() {}));
     super.initState();
   }
 
@@ -48,28 +57,23 @@ class _CreateCaptureState extends State<CreateCapture> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final deviceRatio = size.width / size.height;
-    _controller
-        .initialize(
-          androidLicenseKey:
-              "d7a867203f719b0af5fc353ef0053112e41009ddb66aadc0936770d0b310de83af447a9034e06629",
-          iosLicenseKey:
-              "b1777c0a28a53a137b24d82b3f67fd38570b5ec8d0b5b6ea84b3d1c93dc833966026b6ba87fb313c",
-          resolution: Resolution.veryHigh,
-        )
-        .then((value) => setState(() {}));
     return Scaffold(
       body: Stack(
         children: [
           Transform.scale(
             scale: (1 / _controller.aspectRatio) / deviceRatio,
-            child: DeepArPreview(
-              _controller,
-              onViewCreated: () {
-                // set any initial effect, filter etc
-                // _controller
-                //     .switchEffect(_assetEffectsPath + 'viking_helmet.deepar');
-              },
-            ),
+            child: _controller.isInitialized
+                ? DeepArPreview(
+                    _controller,
+                    onViewCreated: () {
+                      // set any initial effect, filter etc
+                      // _controller
+                      //     .switchEffect(_assetEffectsPath + 'viking_helmet.deepar');
+                    },
+                  )
+                : const Center(
+                    child: Text("Loading..."),
+                  ),
           ),
           _topMediaOptions(),
           _bottomMediaOptions(),
@@ -181,6 +185,7 @@ class _CreateCaptureState extends State<CreateCapture> {
                   } else {
                     await _controller.startVideoRecording();
                   }
+
                   setState(() {});
                 },
                 iconSize: 50,

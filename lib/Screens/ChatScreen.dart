@@ -3,6 +3,7 @@ import 'package:college_project/models/chat_user.dart';
 import 'package:college_project/widget/chat_user_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../api/apis.dart';
 import '../helper/dialogs.dart';
 
@@ -22,6 +23,15 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     super.initState();
     APIs.getSelfInfo();
+    SystemChannels.lifecycle.setMessageHandler((message) {
+      if (message.toString().contains('pause')) {
+        APIs.updateActiveStatus(false);
+      }
+      if (message.toString().contains('resume')) {
+        APIs.updateActiveStatus(true);
+      }
+      return Future.value(message);
+    });
   }
 
   @override
@@ -57,7 +67,6 @@ class _ChatScreenState extends State<ChatScreen> {
                     onChanged: (val) {
                       //search logic
                       _searchlist.clear();
-
                       for (var i in _list) {
                         if (i.name.toLowerCase().contains(val.toLowerCase()) ||
                             i.email.toLowerCase().contains(val.toLowerCase())) {

@@ -5,6 +5,8 @@ import 'package:college_project/Screens/ChatMainScreen.dart';
 */
 import 'package:college_project/Screens/create.dart';
 import 'package:college_project/Screens/explore.dart';
+import 'package:college_project/Screens/profile_screen.dart';
+import 'package:college_project/api/apis.dart';
 import 'package:flutter/material.dart';
 import 'package:bottom_bar/bottom_bar.dart';
 
@@ -29,7 +31,7 @@ class _HomePageState extends State<HomePage> {
           //Container(color: Colors.red),
           const CreateCapture(),
           const ChatScreen(),
-          Container(color: Colors.orange),
+          ProfileScreen(user: APIs.me),
         ],
         onPageChanged: (index) {
           setState(() => _currentPage = index);
