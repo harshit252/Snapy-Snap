@@ -78,7 +78,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       }
                     },
                   )
-                : const Text('We Chat'),
+                : const Text('Chat'),
             actions: [
               //search user button
               IconButton(
